@@ -1,0 +1,6 @@
+tox
+sphinx
+sphinxcontrib-swaggerdoc
+sphinx_bootstrap_theme
+sphinxcontrib-redoc
+lfdocs-conf
