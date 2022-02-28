@@ -36,7 +36,5 @@ go-acc ./... --ignore mocks
 
 sed -i -e 's/oransc\.org\/usecase\/oduclosedloop/smoversion/' coverage.txt
 
-oransc.org/usecase/oduclosedloop/internal/config
-
 cp coverage.txt $curdir
 echo "--> build-ransliceassurance-ubuntu.sh ends"
