@@ -43,6 +43,18 @@ const (
 	jobId                   = "14e7bb84-a44d-44c1-90b7-6995a92ad83d"
 )
 
+var jobRegistrationInfo = struct {
+	InfoTypeID    string      `json:"info_type_id"`
+	JobResultURI  string      `json:"job_result_uri"`
+	JobOwner      string      `json:"job_owner"`
+	JobDefinition interface{} `json:"job_definition"`
+}{
+	InfoTypeID:    "Performance_Measurement_Streaming",
+	JobResultURI:  "",
+	JobOwner:      "O-DU Slice Assurance Usecase",
+	JobDefinition: "{}",
+}
+
 type App struct {
 	client *restclient.Client
 	data   *structures.SliceAssuranceMeas
@@ -54,6 +66,7 @@ var sdnrConfig SdnrConfiguration
 
 func (a *App) Initialize(config *config.Configuration) {
 	consumerPort = fmt.Sprint(config.ConsumerPort)
+	jobRegistrationInfo.JobResultURI = config.ConsumerHost + ":" + consumerPort
 
 	sdnrConfig = SdnrConfiguration{
 		SDNRAddress:  config.SDNRAddress,
@@ -112,17 +125,7 @@ func (a *App) statusHandler(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) startHandler(w http.ResponseWriter, r *http.Request) {
 	log.Debug("startHandler: Register job in ICS.")
-	jobRegistrationInfo := struct {
-		InfoTypeID    string      `json:"info_type_id"`
-		JobResultURI  string      `json:"job_result_uri"`
-		JobOwner      string      `json:"job_owner"`
-		JobDefinition interface{} `json:"job_definition"`
-	}{
-		InfoTypeID:    "Performance_Measurement_Streaming",
-		JobResultURI:  "",
-		JobOwner:      "O-DU Slice Assurance Usecase",
-		JobDefinition: "{}",
-	}
+
 	putErr := a.client.Put(icsAddr+"/data-consumer/v1/info-jobs/"+jobId, jobRegistrationInfo, nil)
 	if putErr != nil {
 		http.Error(w, fmt.Sprintf("Unable to register consumer job due to: %v.", putErr), http.StatusBadRequest)

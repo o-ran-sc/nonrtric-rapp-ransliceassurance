@@ -34,8 +34,6 @@ import (
 var configuration *config.Configuration
 var a sliceassurance.App
 
-const TOPIC string = "/events/unauthenticated.VES_O_RAN_SC_HELLO_WORLD_PM_STREAMING_OUTPUT/myG/C1"
-
 func main() {
 	configuration = config.New()
 

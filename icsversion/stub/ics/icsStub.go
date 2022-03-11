@@ -53,7 +53,7 @@ func getEnv(key string, defaultVal string) string {
 }
 
 func handleCalls(w http.ResponseWriter, r *http.Request) {
-	producer_addr := getEnv("PRODUCER_ADDR", "http://localhost:3905/")
+	producer_addr := getEnv("PRODUCER_ADDR", "http://prod-sdnr-sim:3905/")
 	vars := mux.Vars(r)
 	id, ok := vars["jobId"]
 	if ok {

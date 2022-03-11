@@ -107,7 +107,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	portSdnr := flag.Int("sdnr-port", 3904, "The port this SDNR stub will listen on")
-	dmaapProducerPort := flag.Int("dmaap-port", 3905, "The port this Dmaap mediator will listen on")
+	producerPort := flag.Int("prod-port", 3905, "The port this Producer mediator will listen on")
 	flag.Parse()
 
 	loadData()
@@ -133,9 +133,9 @@ func main() {
 		r.HandleFunc("/create/{jobId}", createJobHandler).Methods(http.MethodPut)
 		r.HandleFunc("/delete/{jobId}", deleteJobHandler).Methods(http.MethodDelete)
 
-		fmt.Println("Producer listening on port: ", *dmaapProducerPort)
+		fmt.Println("Producer listening on port: ", *producerPort)
 
-		log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", *dmaapProducerPort), r))
+		log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", *producerPort), r))
 		wg.Done()
 	}()
 
@@ -143,7 +143,6 @@ func main() {
 }
 
 func createJobHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("createJobHandler::  ", r)
 	vars := mux.Vars(r)
 	id, ok := vars["jobId"]
 	if !ok {
@@ -341,8 +340,8 @@ func sendDmaapMessages() {
 
 		time.Sleep(time.Duration(rand.Intn(3)) * time.Second)
 
-		oru_addr := getEnv("ORU_ADDR", "http://localhost:8095")
-		req, _ := http.NewRequest(http.MethodPost, oru_addr, bytes.NewBuffer(msgToSend))
+		odu_addr := getEnv("ODU_ADDR", "http://consumer-sa:8095")
+		req, _ := http.NewRequest(http.MethodPost, odu_addr, bytes.NewBuffer(msgToSend))
 		req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 		_, err := client.Do(req)
