@@ -49,7 +49,10 @@ func main() {
 	a = sliceassurance.App{}
 	a.Initialize(configuration)
 
-	go a.StartServer()
+	go func() {
+		a.StartServer()
+		os.Exit(1) // If the startServer function exits, it is because there has been a failure in the server, so we exit.
+	}()
 	keepConsumerAlive()
 }
 

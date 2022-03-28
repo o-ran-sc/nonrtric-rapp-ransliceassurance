@@ -160,7 +160,7 @@ func (c *Client) newRequest(method, path string, payload interface{}, userInfo .
 	}
 
 	if c.verbose {
-		if reqDump, error := httputil.DumpRequest(req, true); error != nil {
+		if reqDump, error := httputil.DumpRequestOut(req, true); error != nil {
 			fmt.Println(err)
 		} else {
 			fmt.Println(string(reqDump))

@@ -44,15 +44,15 @@ const (
 )
 
 var jobRegistrationInfo = struct {
-	InfoTypeID    string      `json:"info_type_id"`
-	JobResultURI  string      `json:"job_result_uri"`
-	JobOwner      string      `json:"job_owner"`
-	JobDefinition interface{} `json:"job_definition"`
+	InfoTypeID            string      `json:"info_type_id"`
+	JobResultURI          string      `json:"job_result_uri"`
+	JobOwner              string      `json:"job_owner"`
+	JobDefinition         interface{} `json:"job_definition"`
+	StatusNotificationURI string      `json:"status_notification_uri"`
 }{
-	InfoTypeID:    "Performance_Measurement_Streaming",
-	JobResultURI:  "",
-	JobOwner:      "O-DU Slice Assurance Usecase",
-	JobDefinition: "{}",
+	InfoTypeID:   "Performance_Measurement_Streaming",
+	JobResultURI: "",
+	JobOwner:     "O-DU Slice Assurance Usecase",
 }
 
 type App struct {
@@ -67,6 +67,7 @@ var sdnrConfig SdnrConfiguration
 func (a *App) Initialize(config *config.Configuration) {
 	consumerPort = fmt.Sprint(config.ConsumerPort)
 	jobRegistrationInfo.JobResultURI = config.ConsumerHost + ":" + consumerPort
+	jobRegistrationInfo.StatusNotificationURI = config.ConsumerHost + ":" + consumerPort
 
 	sdnrConfig = SdnrConfiguration{
 		SDNRAddress:  config.SDNRAddress,
@@ -124,7 +125,7 @@ func (a *App) statusHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) startHandler(w http.ResponseWriter, r *http.Request) {
-	log.Debug("startHandler: Register job in ICS.")
+	log.Debug("Register job in ICS.")
 
 	putErr := a.client.Put(icsAddr+"/data-consumer/v1/info-jobs/"+jobId, jobRegistrationInfo, nil)
 	if putErr != nil {
