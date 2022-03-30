@@ -1,0 +1,130 @@
+#  Copyright (C) 2021 Nordix Foundation. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+version: '3'
+
+networks:
+  nonrtric:
+    driver: bridge
+  oam:
+    external: true
+  smo:
+    external: true
+
+services:
+  nonrtric-control-panel:
+    image: "${CONTROL_PANEL_IMAGE_BASE}:${CONTROL_PANEL_IMAGE_TAG}"
+    container_name: nonrtric-control-panel
+    networks:
+      - default
+      - smo
+    ports:
+      - 8182:8080
+      - 8082:8082
+    volumes:
+      - ./config/control-panel/nginx.conf:/etc/nginx/nginx.conf:ro
+
+  nonrtric-gateway:
+    image: "${NONRTRIC_GATEWAY_IMAGE_BASE}:${NONRTRIC_GATEWAY_IMAGE_TAG}"
+    container_name: nonrtric-gateway
+    networks:
+      - default
+      - smo
+    ports:
+      - 9090:9090
+    volumes:
+      - ./config/nonrtric-gateway/application-nonrtricgateway.yaml:/opt/app/nonrtric-gateway/config/application.yaml:ro
+
+  ics:
+    image: "${ICS_IMAGE_BASE}:${ICS_IMAGE_TAG}"
+    container_name: ics
+    networks:
+      - default
+      - smo
+    ports:
+      - 8083:8083
+      - 8434:8434
+
+  dmaap-adaptor-service:
+    image: "${DMAAP_ADAPTOR_JAVA_BASE}:${DMAAP_ADAPTOR_JAVA_TAG}"
+    container_name: dmaap-adaptor-service
+    networks:
+      - default
+      - smo
+    ports:
+      - 8084:8084
+      - 8435:8435
+    volumes:
+      - ./config/dmaap-adaptor-java/application.yaml:/opt/app/dmaap-adaptor-service/config/application.yaml:ro
+      - ./config/dmaap-adaptor-java/application_configuration.json:/opt/app/dmaap-adaptor-service/data/application_configuration.json:ro
+  
+  dmaap-mediator-service:
+    image: "${DMAAP_MEDIATOR_GO_BASE}:${DMAAP_MEDIATOR_GO_TAG}"
+    container_name: dmaap-mediator-service
+    networks:
+      - default
+      - smo
+    ports:
+      - 8085:8085
+      - 8436:8436
+    environment:
+      - INFO_PRODUCER_HOST=http://dmaap-mediator-service
+      - INFO_PRODUCER_PORT=8085
+      - INFO_COORD_ADDR=http://ics:8083
+      - DMAAP_MR_ADDR=http://onap-dmaap:3904
+      - PRODUCER_CERT_PATH=security/producer.crt
+      - PRODUCER_KEY_PATH=security/producer.key
+      - KAFKA_BOOTSTRAP_SERVERS=http://kafka:9092
+      - LOG_LEVEL=Debug
+    volumes:
+    - ./config/dmaap-mediator-producer/type_config.json:/configs/type_config.json
+
+  oru-app:
+    image: "${ORU_APP_IMAGE_BASE}:${ORU_APP_IMAGE_TAG}"
+    container_name: oru-app
+    networks:
+      - default
+      - oam
+      - smo
+    ports:
+      - 8086:8086
+    environment:
+      - CONSUMER_HOST=http://oru-app
+      - CONSUMER_PORT=8086
+      - INFO_COORD_ADDR=http://ics:8083
+      - SDNR_ADDR=http://sdnr:8181
+      - CONSUMER_CERT_PATH=security/consumer.crt
+      - CONSUMER_KEY_PATH=security/consumer.key
+      - LOG_LEVEL=Debug
+    volumes:
+      - ./config/oru-app/o-ru-to-o-du-map.txt:/usr/src/app/o-ru-to-o-du-map.txt:ro
+
+  odu-app:
+    image: "${ODU_APP_IMAGE_BASE}:${ODU_APP_IMAGE_TAG}"
+    container_name: odu-app
+    networks:
+      - default
+      - oam
+      - smo
+    ports:
+      - 8095:8095
+    environment:
+      - SDNR_USER=admin
+      - SDNR_PASSWORD=Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+      - CONSUMER_HOST=http://odu-app
+      - CONSUMER_PORT=8095
+      - INFO_COORD_ADDR=http://ics:8083
+      - SDNR_ADDR=http://sdnr:8181
+      - LOG_LEVEL=Debug
