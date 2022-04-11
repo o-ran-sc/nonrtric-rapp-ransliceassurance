@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f0ca0a3_9aee36ef",
+        "filename": "icsversion/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001589
+      },
+      "writtenOn": "2022-04-11T13:22:37Z",
+      "side": 1,
+      "message": "would \"all the requests from the gui are passed\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 187,
+        "endLine": 35,
+        "endChar": 225
+      },
+      "revId": "bd77188c19c06c29c8aaedab0be4951d37ca9df5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a00cd8d_77296b2c",
+        "filename": "icsversion/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001589
+      },
+      "writtenOn": "2022-04-11T13:22:37Z",
+      "side": 1,
+      "message": "should this be a link?",
+      "range": {
+        "startLine": 43,
+        "startChar": 196,
+        "endLine": 43,
+        "endChar": 275
+      },
+      "revId": "bd77188c19c06c29c8aaedab0be4951d37ca9df5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739c3d22_c42b5ca4",
+        "filename": "icsversion/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001589
+      },
+      "writtenOn": "2022-04-11T13:22:37Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 45,
+        "startChar": 228,
+        "endLine": 45,
+        "endChar": 307
+      },
+      "revId": "bd77188c19c06c29c8aaedab0be4951d37ca9df5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
