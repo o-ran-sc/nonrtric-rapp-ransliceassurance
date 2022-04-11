@@ -377,7 +377,15 @@ func TestDelete(t *testing.T) {
 
 	client := New(&http.Client{}, false)
 	payload := `json:"example"`
+	// With user info
 	err := client.Delete(srv.URL, payload, nil, "admin", "pass")
+
+	if err != nil {
+		assert.Equal(t, "", err.Error())
+	}
+
+	// Without user info
+	err = client.Delete(srv.URL, payload, nil)
 
 	if err != nil {
 		assert.Equal(t, "", err.Error())
