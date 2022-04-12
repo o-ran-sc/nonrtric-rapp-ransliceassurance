@@ -19,7 +19,6 @@
 set -eux
 
 echo "--> build-ransliceassurance-ubuntu.sh"
-curdir=`pwd`
 # go installs tools like go-acc to $HOME/go/bin
 # ubuntu minion path lacks go
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
@@ -34,7 +33,6 @@ go get github.com/stretchr/testify/mock@v1.7.0
 
 go-acc ./... --ignore mocks
 
-sed -i -e 's/oransc\.org\/usecase\/oduclosedloop/icsversion/' coverage.txt
+sed -i -e 's/oransc\.org\/usecase\/oduclosedloop\///' coverage.txt
 
-cp coverage.txt $curdir
 echo "--> build-ransliceassurance-ubuntu.sh ends"
