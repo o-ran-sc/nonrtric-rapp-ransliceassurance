@@ -11,3 +11,8 @@ linkcheck_ignore = [
 ]
 
 extensions = ['sphinxcontrib.redoc', 'sphinx.ext.intersphinx',]
+
+#intershpinx mapping with other projects
+intersphinx_mapping = {}
+
+intersphinx_mapping['nonrtric'] = ('https://docs.o-ran-sc.org/projects/o-ran-sc-nonrtric/en/%s' % branch, None)

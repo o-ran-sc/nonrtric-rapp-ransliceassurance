@@ -2,8 +2,8 @@
 .. SPDX-License-Identifier: CC-BY-4.0
 .. Copyright (C) 2022 Nordix
 
-Non-RT RIC
-==========
+Non-RT RIC RAN Slice Assurance Use Case
+=======================================
 
 .. toctree::
    :maxdepth: 2
@@ -12,5 +12,3 @@ Non-RT RIC
    ./overview.rst
    ./developer-guide.rst
    ./release-notes.rst
-
-* :ref:`search`
