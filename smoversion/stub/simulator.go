@@ -32,6 +32,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+
 	"github.com/gorilla/mux"
 	"oransc.org/usecase/oduclosedloop/messages"
 
@@ -53,8 +56,14 @@ type SliceAssuranceInformation struct {
 	policyDedicatedRatio int
 }
 
-var data []*SliceAssuranceInformation
-var messagesToSend []messages.Measurement
+var (
+	data           []*SliceAssuranceInformation
+	messagesToSend []messages.Measurement
+	metric         = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "rapp_slice_assurance_metric",
+		Help: "Duration of the last request call.",
+	}, []string{"MeasurementTypeInstanceReference", "unit"})
+)
 
 func loadData() {
 	lines, err := GetCsvFromFile("test-data.csv")
@@ -75,6 +84,7 @@ func loadData() {
 			policyDedicatedRatio: toInt(line[9]),
 		}
 		data = append(data, &sai)
+		metric.WithLabelValues(getMeasTypeInstanceRef(&sai), "kbit/s").Set(float64(THRESHOLD_TPUT))
 	}
 }
 
@@ -113,6 +123,8 @@ func main() {
 	wg := new(sync.WaitGroup)
 	wg.Add(2)
 
+	prometheus.Register(metric)
+
 	go func() {
 
 		r := mux.NewRouter()
@@ -128,6 +140,7 @@ func main() {
 	go func() {
 
 		r := mux.NewRouter()
+		r.Handle("/metrics", promhttp.Handler())
 		r.HandleFunc("/events/unauthenticated.VES_O_RAN_SC_HELLO_WORLD_PM_STREAMING_OUTPUT/myG/C1", sendDmaapMRMessages).Methods(http.MethodGet)
 
 		fmt.Println("Starting DmaapMR stub on port: ", *portDmaapMR)
@@ -305,6 +318,8 @@ func sendDmaapMRMessages(w http.ResponseWriter, r *http.Request) {
 	log.Info("Send Dmaap messages")
 	entry := data[rand.Intn(5)]
 
+	changeMetric(entry)
+
 	maxTput := THRESHOLD_TPUT + 100
 	randomTput := rand.Intn(maxTput-THRESHOLD_TPUT+1) + THRESHOLD_TPUT
 	if randomTput%3 == 0 {
@@ -366,7 +381,7 @@ func sendDmaapMRMessages(w http.ResponseWriter, r *http.Request) {
 
 func generateMeasurementEntry(entry *SliceAssuranceInformation) messages.Measurement {
 
-	measurementTypeInstanceReference := "/o-ran-sc-du-hello-world:network-function/distributed-unit-functions[id='" + entry.duId + "']/cell[id='" + entry.cellId + "']/supported-measurements[performance-measurement-type='(urn:o-ran-sc:yang:o-ran-sc-du-hello-world?revision=2021-11-23)" + entry.metricName + "']/supported-snssai-subcounter-instances[slice-differentiator='" + strconv.Itoa(entry.sd) + "'][slice-service-type='" + strconv.Itoa(entry.sst) + "']"
+	measurementTypeInstanceReference := getMeasTypeInstanceRef(entry)
 	meas := messages.Measurement{
 
 		MeasurementTypeInstanceReference: measurementTypeInstanceReference,
@@ -374,4 +389,20 @@ func generateMeasurementEntry(entry *SliceAssuranceInformation) messages.Measure
 		Unit:                             "kbit/s",
 	}
 	return meas
+}
+
+func getMeasTypeInstanceRef(entry *SliceAssuranceInformation) string {
+	return "/o-ran-sc-du-hello-world:network-function/distributed-unit-functions[id='" + entry.duId + "']/cell[id='" + entry.cellId + "']/supported-measurements[performance-measurement-type='(urn:o-ran-sc:yang:o-ran-sc-du-hello-world?revision=2021-11-23)" + entry.metricName + "']/supported-snssai-subcounter-instances[slice-differentiator='" + strconv.Itoa(entry.sd) + "'][slice-service-type='" + strconv.Itoa(entry.sst) + "']"
+}
+
+func changeMetric(entry *SliceAssuranceInformation) {
+	min := 1
+	max := 5
+	tmpVal := rand.Intn(max-min) + min
+	if rand.Intn(2)%2 == 0 {
+		tmpVal = 0 - tmpVal
+	}
+	log.Infof("Adding %v to cell: %v, diff: %v ", tmpVal, entry.cellId, strconv.Itoa(entry.sd))
+	metric.WithLabelValues(getMeasTypeInstanceRef(entry), "kbit/s").Add(float64(tmpVal))
+
 }
