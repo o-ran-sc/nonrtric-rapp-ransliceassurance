@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce5435c_01f438c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2022-08-24T14:59:54Z",
+      "side": 1,
+      "message": "dont forget to also so icsversion/container-tag.yaml",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "916e2475c5ebdbbb71186237b3117250684dd55b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "19cae48d_146ec2f5",
