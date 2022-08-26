@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45045b36_b2a05d94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2022-08-26T16:10:41Z",
+      "side": 1,
+      "message": "Please update in f-release branch too, \n\nAlso, please bump version number in f-release branch also. ",
+      "revId": "5913df8a1fb2016a3fa27b43151ab5ba5d70f8d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
