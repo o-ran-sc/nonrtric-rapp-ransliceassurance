@@ -22,13 +22,13 @@ echo "--> build-ransliceassurance-ubuntu.sh"
 # go installs tools like go-acc to $HOME/go/bin
 # ubuntu minion path lacks go
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+export GO111MODULE=on
 go version
 cd smoversion/
 
 # install the go coverage tool helper
-go get -v github.com/ory/go-acc
+go install github.com/ory/go-acc
 
-export GO111MODULE=on
 go get github.com/stretchr/testify/mock@v1.7.0
 
 go-acc ./... --ignore mocks
