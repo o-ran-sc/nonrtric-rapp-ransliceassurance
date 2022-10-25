@@ -34,13 +34,12 @@ import (
 var started bool
 var icsAddr string
 var consumerPort string
+var jobId string
 
 const (
 	THRESHOLD_TPUT          = 7000
 	DEFAULT_DEDICATED_RATIO = 15
 	NEW_DEDICATED_RATIO     = 25
-	NODE_ID                 = "O-DU-1122"
-	jobId                   = "14e7bb84-a44d-44c1-90b7-6995a92ad83d"
 )
 
 var jobRegistrationInfo = struct {
@@ -73,8 +72,10 @@ func (a *App) Initialize(config *config.Configuration) {
 		SDNRAddress:  config.SDNRAddress,
 		SDNRUser:     config.SDNRUser,
 		SDNRPassword: config.SDNPassword,
+		NodeId:       config.NodeId,
 	}
 	icsAddr = config.InfoCoordinatorAddress
+	jobId = config.JobId
 
 	a.client = restclient.New(&http.Client{}, false)
 	a.data = structures.NewSliceAssuranceMeas()

@@ -36,6 +36,8 @@ type Configuration struct {
 	SDNPassword            string
 	InfoCoordinatorAddress string
 	LogLevel               log.Level
+	NodeId                 string
+	JobId                  string
 }
 
 func New() *Configuration {
@@ -47,11 +49,13 @@ func New() *Configuration {
 		SDNPassword:            getEnv("SDNR_PASSWORD", "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"),
 		InfoCoordinatorAddress: getEnv("INFO_COORD_ADDR", "http://enrichmentservice:8083"),
 		LogLevel:               getLogLevel(),
+		NodeId:                 getEnv("NODE_ID", "O-DU-1122"),
+		JobId:                  getEnv("JOB_ID", "14e7bb84-a44d-44c1-90b7-6995a92ad83d"),
 	}
 }
 
 func (c Configuration) String() string {
-	return fmt.Sprintf("[ConsumerHost: %v, ConsumerPort: %v, SDNRAddress: %v, SDNRUser: %v, SDNRPassword: %v, InfoCoordinatorAddress: %v, LogLevel: %v]", c.ConsumerHost, c.ConsumerPort, c.SDNRAddress, c.SDNRUser, c.SDNPassword, c.InfoCoordinatorAddress, c.LogLevel)
+	return fmt.Sprintf("[ConsumerHost: %v, ConsumerPort: %v, SDNRAddress: %v, SDNRUser: %v, SDNRPassword: %v, InfoCoordinatorAddress: %v, LogLevel: %v, NodeId: %v, JobId: %v]", c.ConsumerHost, c.ConsumerPort, c.SDNRAddress, c.SDNRUser, c.SDNPassword, c.InfoCoordinatorAddress, c.LogLevel, c.NodeId, c.JobId)
 }
 
 func getEnv(key string, defaultVal string) string {
