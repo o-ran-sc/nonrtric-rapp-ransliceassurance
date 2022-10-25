@@ -52,6 +52,8 @@ func TestConfigurationValuesSetProperly(t *testing.T) {
 					SDNPassword:            "pass",
 					InfoCoordinatorAddress: "infoCoordAddr",
 					LogLevel:               log.InfoLevel,
+					NodeId:                 "O-DU-1122",
+					JobId:                  "14e7bb84-a44d-44c1-90b7-6995a92ad83d",
 				},
 			},
 		},
@@ -65,6 +67,8 @@ func TestConfigurationValuesSetProperly(t *testing.T) {
 					SDNPassword:            "pass",
 					InfoCoordinatorAddress: "infoCoordAddr",
 					LogLevel:               log.InfoLevel,
+					NodeId:                 "O-DU-1122",
+					JobId:                  "14e7bb84-a44d-44c1-90b7-6995a92ad83d",
 				},
 				envVar: map[string]string{"CONSUMER_PORT": "wrong"},
 			},
@@ -80,6 +84,8 @@ func TestConfigurationValuesSetProperly(t *testing.T) {
 					SDNPassword:            "pass",
 					InfoCoordinatorAddress: "infoCoordAddr",
 					LogLevel:               log.InfoLevel,
+					NodeId:                 "O-DU-1122",
+					JobId:                  "14e7bb84-a44d-44c1-90b7-6995a92ad83d",
 				},
 				envVar: map[string]string{"LOG_LEVEL": "wrong"},
 			},
@@ -94,6 +100,8 @@ func TestConfigurationValuesSetProperly(t *testing.T) {
 			os.Setenv("SDNR_USER", "admin")
 			os.Setenv("SDNR_PASSWORD", "pass")
 			os.Setenv("INFO_COORD_ADDR", "infoCoordAddr")
+			os.Setenv("NODE_ID", "O-DU-1122")
+			os.Setenv("JOB_ID", "14e7bb84-a44d-44c1-90b7-6995a92ad83d")
 
 			for key, element := range tt.args.envVar {
 				os.Setenv(key, element)

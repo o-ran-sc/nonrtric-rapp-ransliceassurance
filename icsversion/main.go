@@ -59,6 +59,8 @@ func main() {
 func validateConfiguration(configuration *config.Configuration) error {
 	if configuration.ConsumerHost == "" || configuration.ConsumerPort == 0 {
 		return fmt.Errorf("consumer host and port must be provided")
+	} else if configuration.NodeId == "" {
+		return fmt.Errorf("NodeId must be provided")
 	}
 	return nil
 }
