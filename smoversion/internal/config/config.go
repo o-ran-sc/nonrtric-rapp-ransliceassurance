@@ -36,6 +36,7 @@ type Config struct {
 	SDNPassword string
 	Polltime    int
 	LogLevel    log.Level
+	NodeId      string
 }
 
 func New() *Config {
@@ -47,11 +48,12 @@ func New() *Config {
 		SDNPassword: getEnv("SDNR_PASSWORD", "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"),
 		Polltime:    getEnvAsInt("Polltime", 30),
 		LogLevel:    getLogLevel(),
+		NodeId:      getEnv("NODE_ID", ""),
 	}
 }
 
 func (c Config) String() string {
-	return fmt.Sprintf("[MRHost: %v, MRPort: %v, SDNRAddress: %v, SDNRUser: %v, SDNRPassword: %v, PollTime: %v, LogLevel: %v]", c.MRHost, c.MRPort, c.SDNRAddress, c.SDNRUser, c.SDNPassword, c.Polltime, c.LogLevel)
+	return fmt.Sprintf("[MRHost: %v, MRPort: %v, SDNRAddress: %v, SDNRUser: %v, SDNRPassword: %v, PollTime: %v, LogLevel: %v, NodeId: %v]", c.MRHost, c.MRPort, c.SDNRAddress, c.SDNRUser, c.SDNPassword, c.Polltime, c.LogLevel, c.NodeId)
 }
 
 func getEnv(key string, defaultVal string) string {

@@ -57,6 +57,8 @@ func main() {
 func validateConfiguration(configuration *config.Config) error {
 	if configuration.MRHost == "" || configuration.MRPort == "" {
 		return fmt.Errorf("message router host and port must be provided")
+	} else if configuration.NodeId == "" {
+		return fmt.Errorf("NodeId must be provided")
 	}
 	return nil
 }
