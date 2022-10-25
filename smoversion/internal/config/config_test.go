@@ -38,6 +38,7 @@ func TestNewEnvVarsSetConfigContainSetValues(t *testing.T) {
 	os.Setenv("SDNR_PASSWORD", "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U")
 	os.Setenv("Polltime", "30")
 	os.Setenv("LOG_LEVEL", "Debug")
+	os.Setenv("NODE_ID", "o-du-1122")
 	t.Cleanup(func() {
 		os.Clearenv()
 	})
@@ -49,6 +50,7 @@ func TestNewEnvVarsSetConfigContainSetValues(t *testing.T) {
 		SDNPassword: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
 		Polltime:    30,
 		LogLevel:    log.DebugLevel,
+		NodeId:      "o-du-1122",
 	}
 
 	got := New()
@@ -73,6 +75,7 @@ func TestNewFaultyIntValueSetConfigContainDefaultValueAndWarnInLog(t *testing.T)
 		SDNPassword: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
 		Polltime:    30,
 		LogLevel:    log.InfoLevel,
+		NodeId:      "O-DU-1122",
 	}
 
 	got := New()
@@ -100,6 +103,7 @@ func TestNewEnvFaultyLogLevelConfigContainDefaultValues(t *testing.T) {
 		SDNPassword: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
 		Polltime:    30,
 		LogLevel:    log.InfoLevel,
+		NodeId:      "O-DU-1122",
 	}
 	got := New()
 	assertions.Equal(&wantConfig, got)
