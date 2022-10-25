@@ -38,7 +38,6 @@ const (
 	THRESHOLD_TPUT          = 7000
 	DEFAULT_DEDICATED_RATIO = 15
 	NEW_DEDICATED_RATIO     = 25
-	NODE_ID                 = "O-DU-1122"
 )
 
 type App struct {
@@ -50,12 +49,14 @@ var dmaapMRUrl string
 var sDNRUrl string
 var sDNRUsername string
 var sDNRPassword string
+var nodeId string
 
 func (a *App) Initialize(config *config.Config) {
 	dmaapMRUrl = config.MRHost + ":" + config.MRPort
 	sDNRUrl = config.SDNRAddress
 	sDNRUsername = config.SDNRUser
 	sDNRPassword = config.SDNPassword
+	nodeId = config.NodeId
 
 	a.client = restclient.New(&http.Client{}, false)
 	a.metricsPolicies = structures.NewSliceAssuranceMeas()
@@ -103,7 +104,7 @@ func (a *App) getRRMInformation(duid string) {
 	var duRRMPolicyRatio messages.ORanDuRestConf
 
 	log.Infof("Get RRM Information from SDNR url: %v", sDNRUrl)
-	if error := a.client.Get(getUrlForDistributedUnitFunctions(sDNRUrl, duid), &duRRMPolicyRatio, sDNRUsername, sDNRPassword); error == nil {
+	if error := a.client.Get(getUrlForDistributedUnitFunctions(sDNRUrl, duid, nodeId), &duRRMPolicyRatio, sDNRUsername, sDNRPassword); error == nil {
 		prettyPrint(duRRMPolicyRatio.DistributedUnitFunction)
 	} else {
 		log.Warn("Send of Get RRM Information failed! ", error)
@@ -123,7 +124,7 @@ func (a *App) updateDedicatedRatio() {
 		//TODO What happened if dedicated ratio is already higher that default and threshold is exceed?
 		if check && policy.PolicyDedicatedRatio <= DEFAULT_DEDICATED_RATIO {
 			log.Infof("Send Request to update DedicatedRatio for DU id: %v Policy id: %v", metric.DUId, policy.PolicyRatioId)
-			path := getUrlUpdatePolicyDedicatedRatio(sDNRUrl, metric.DUId, policy.PolicyRatioId)
+			path := getUrlUpdatePolicyDedicatedRatio(sDNRUrl, metric.DUId, policy.PolicyRatioId, nodeId)
 			updatePolicyMessage := policy.GetUpdateDedicatedRatioMessage(metric.SliceDiff, metric.SliceServiceType, NEW_DEDICATED_RATIO)
 			prettyPrint(updatePolicyMessage)
 			if error := a.client.Put(path, updatePolicyMessage, nil, sDNRUsername, sDNRPassword); error == nil {
@@ -135,12 +136,12 @@ func (a *App) updateDedicatedRatio() {
 	}
 }
 
-func getUrlForDistributedUnitFunctions(host string, duid string) string {
-	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + NODE_ID + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid
+func getUrlForDistributedUnitFunctions(host string, duid string, nodeid string) string {
+	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + nodeid + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid
 }
 
-func getUrlUpdatePolicyDedicatedRatio(host string, duid string, policyid string) string {
-	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + NODE_ID + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid + "/radio-resource-management-policy-ratio=" + policyid
+func getUrlUpdatePolicyDedicatedRatio(host string, duid string, policyid string, nodeid string) string {
+	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + nodeid + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid + "/radio-resource-management-policy-ratio=" + policyid
 }
 
 func prettyPrint(jsonStruct interface{}) {
