@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c17e518c_d4db8c0f",
+        "filename": "smoversion/internal/config/config.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000201
+      },
+      "writtenOn": "2022-10-26T11:50:15Z",
+      "side": 1,
+      "message": "Should this really have a default value, since there is no good default value to provide? Suggest to leave out the default value and add a validtion in the main.go file to check that it is provided in the configuration, like for the consumerHost and consumerPort.",
+      "range": {
+        "startLine": 51,
+        "startChar": 33,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "a3ba15698dccf8feec1098dc3fb99e0b574ad7ba",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
