@@ -34,6 +34,7 @@ type SdnrConfiguration struct {
 	SDNRAddress  string
 	SDNRUser     string
 	SDNRPassword string
+	NodeId       string
 }
 
 type SdnrHandler struct {
@@ -54,7 +55,7 @@ func (handler SdnrHandler) getRRMInformation(duid string) {
 	var duRRMPolicyRatio messages.ORanDuRestConf
 
 	log.Infof("Get RRM Information from SDNR url: %v", handler.config.SDNRAddress)
-	if error := handler.client.Get(getUrlForDistributedUnitFunctions(handler.config.SDNRAddress, duid), &duRRMPolicyRatio, handler.config.SDNRUser, handler.config.SDNRPassword); error == nil {
+	if error := handler.client.Get(getUrlForDistributedUnitFunctions(handler.config.SDNRAddress, duid, handler.config.NodeId), &duRRMPolicyRatio, handler.config.SDNRUser, handler.config.SDNRPassword); error == nil {
 		prettyPrint(duRRMPolicyRatio.DistributedUnitFunction)
 	} else {
 		log.Warn("Send of Get RRM Information failed! ", error)
@@ -74,7 +75,7 @@ func (handler SdnrHandler) updateDedicatedRatio() {
 		//TODO What happened if dedicated ratio is already higher that default and threshold is exceed?
 		if check && policy.PolicyDedicatedRatio <= DEFAULT_DEDICATED_RATIO {
 			log.Infof("Send Request to update DedicatedRatio for DU id: %v Policy id: %v", metric.DUId, policy.PolicyRatioId)
-			path := getUrlUpdatePolicyDedicatedRatio(handler.config.SDNRAddress, metric.DUId, policy.PolicyRatioId)
+			path := getUrlUpdatePolicyDedicatedRatio(handler.config.SDNRAddress, metric.DUId, policy.PolicyRatioId, handler.config.NodeId)
 			updatePolicyMessage := policy.GetUpdateDedicatedRatioMessage(metric.SliceDiff, metric.SliceServiceType, NEW_DEDICATED_RATIO)
 			prettyPrint(updatePolicyMessage)
 			if error := handler.client.Put(path, updatePolicyMessage, nil, handler.config.SDNRUser, handler.config.SDNRPassword); error == nil {
@@ -86,12 +87,14 @@ func (handler SdnrHandler) updateDedicatedRatio() {
 	}
 }
 
-func getUrlForDistributedUnitFunctions(host string, duid string) string {
-	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + NODE_ID + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid
+func getUrlForDistributedUnitFunctions(host string, duid string, nodeid string) string {
+	fmt.Print(host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + nodeid + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid)
+	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + nodeid + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid
 }
 
-func getUrlUpdatePolicyDedicatedRatio(host string, duid string, policyid string) string {
-	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + NODE_ID + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid + "/radio-resource-management-policy-ratio=" + policyid
+func getUrlUpdatePolicyDedicatedRatio(host string, duid string, policyid string, nodeid string) string {
+	fmt.Print(host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + nodeid + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid + "/radio-resource-management-policy-ratio=" + policyid)
+	return host + "/rests/data/network-topology:network-topology/topology=topology-netconf/node=" + nodeid + "/yang-ext:mount/o-ran-sc-du-hello-world:network-function/distributed-unit-functions=" + duid + "/radio-resource-management-policy-ratio=" + policyid
 }
 
 func prettyPrint(jsonStruct interface{}) {
