@@ -22,6 +22,30 @@
       },
       "revId": "a3ba15698dccf8feec1098dc3fb99e0b574ad7ba",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f987e4fd_9bd62d37",
+        "filename": "smoversion/internal/config/config.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2022-10-26T13:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c17e518c_d4db8c0f",
+      "range": {
+        "startLine": 51,
+        "startChar": 33,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "a3ba15698dccf8feec1098dc3fb99e0b574ad7ba",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
