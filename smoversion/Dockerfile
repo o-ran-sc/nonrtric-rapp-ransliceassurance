@@ -17,7 +17,7 @@
 ##
 ## Build
 ##
-FROM nexus3.o-ran-sc.org:10001/golang:1.17-bullseye AS build
+FROM nexus3.o-ran-sc.org:10001/golang:1.19.2-bullseye AS build
 
 WORKDIR /app
 
