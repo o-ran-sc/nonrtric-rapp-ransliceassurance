@@ -67,6 +67,8 @@ func (a *App) Initialize(config *config.Configuration) {
 	consumerPort = fmt.Sprint(config.ConsumerPort)
 	jobRegistrationInfo.JobResultURI = config.ConsumerHost + ":" + consumerPort
 	jobRegistrationInfo.StatusNotificationURI = config.ConsumerHost + ":" + consumerPort
+	var job_definition struct{}
+	jobRegistrationInfo.JobDefinition = job_definition
 
 	sdnrConfig = SdnrConfiguration{
 		SDNRAddress:  config.SDNRAddress,
