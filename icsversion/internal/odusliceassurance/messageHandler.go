@@ -21,6 +21,7 @@
 package sliceassurance
 
 import (
+	"bytes"
 	"encoding/json"
 	"io"
 	"io/ioutil"
@@ -66,10 +67,14 @@ func getVesMessages(r io.ReadCloser) *[]string {
 		log.Warn(err)
 		return nil
 	}
-	err = json.Unmarshal(body, &messages)
-	if err != nil {
-		log.Warn(err)
-		return nil
+	if bytes.HasPrefix(body, []byte("{")) {
+		messages = append(messages, string(body))
+	} else {
+		err = json.Unmarshal(body, &messages)
+		if err != nil {
+			log.Warn(err)
+			return nil
+		}
 	}
 	return &messages
 }
