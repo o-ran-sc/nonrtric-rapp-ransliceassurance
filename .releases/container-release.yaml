@@ -1,10 +1,10 @@
 ---
 distribution_type: container
-container_release_tag: 1.1.0
+container_release_tag: 1.2.0
 container_pull_registry: nexus3.o-ran-sc.org:10004
 container_push_registry: nexus3.o-ran-sc.org:10002
 project: nonrtric
-ref: 80578e5a9ceb992f28bafb4e32c92815df24d60e
+ref: 23982992f639710b1a4dd11a6e01622206627d62
 containers:
     - name: nonrtric-rapp-ransliceassurance
-      version: 1.1.0
+      version: 1.2.0
