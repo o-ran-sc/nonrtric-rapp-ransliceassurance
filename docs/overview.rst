@@ -6,6 +6,6 @@
 RAN Slice Assurance Use Case
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A very simplified closed-loop rApp use case to re-prioritize a RAN slice's radio resource allocation priority if sufficient throughput cannot be maintained. Not intended to to be 'real-world'.
+A very simplified closed-loop rApp use case to re-prioritize a RAN slice's radio resource allocation priority if sufficient throughput cannot be maintained. This rApp exists in two versions, one smo and one ics version. Not intended to to be 'real-world'.
 
 This product is a part of :doc:`NONRTRIC <nonrtric:index>`.
