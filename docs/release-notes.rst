@@ -13,8 +13,8 @@ This document provides the release notes for the release of the different parts 
    :depth: 1
    :local:
 
-Version history RAN Slice Assurance usecase
-============================================
+Version history RAN Slice Assurance use case
+=============================================
 
 +------------+----------+------------------+-----------------+
 | **Date**   | **Ver.** | **Author**       | **Comment**     |

@@ -42,7 +42,7 @@ func NewMessageHandler(data *structures.SliceAssuranceMeas) *MessageHandler {
 }
 
 func (handler MessageHandler) ProcessMessage(body io.ReadCloser) {
-	log.Debug("Process messages from Dmaap mediator")
+	log.Debug("Process messages from DMaaP mediator")
 
 	if messages := getVesMessages(body); messages != nil {
 		stdMessages := getStdMessages(messages)

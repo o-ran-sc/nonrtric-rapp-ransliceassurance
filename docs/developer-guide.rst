@@ -5,11 +5,11 @@
 Developer Guide
 ===============
 
-This document provides a quickstart for developers of the RAN Slice Assurance use case.
+This document provides a quick start for developers of the RAN Slice Assurance use case.
 
 Additional developer guides are available on the `O-RAN SC NONRTRIC Developer wiki <https://wiki.o-ran-sc.org/display/RICNR/Release+F>`_.
 
-See the page in Wiki: `O-DU Slice Assurance usecase <https://wiki.o-ran-sc.org/display/RICNR/O-DU+Slice+Assurance+usecase>`_.
+See the page in Wiki: `O-DU Slice Assurance use case <https://wiki.o-ran-sc.org/display/RICNR/O-DU+Slice+Assurance+usecase>`_.
 
 
 Kubernetes deployment
