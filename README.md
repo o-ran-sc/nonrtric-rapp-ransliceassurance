@@ -20,3 +20,9 @@
 
 -->
 
+# O-RAN-SC Non-RealTime RIC Service Management and Exposure
+
+There are two versions of the use implemented.
+
+- One SMO version, see [SMO version](smoversion/README.md).
+- One Information Coordinator Service (ICS) version, see [ICS version](icsversion/README.md).
