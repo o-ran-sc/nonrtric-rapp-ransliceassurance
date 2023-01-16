@@ -20,9 +20,9 @@
 
 -->
 
-# O-RAN-SC Non-RealTime RIC Service Management and Exposure
+# O-RAN-SC Non-RealTime RIC O-DU Closed Loop use case Slice Assurance
 
-There are two versions of the use implemented.
+There are two versions of the use case implemented.
 
 - One SMO version, see [SMO version](smoversion/README.md).
 - One Information Coordinator Service (ICS) version, see [ICS version](icsversion/README.md).
