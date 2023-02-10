@@ -35,7 +35,7 @@ func TestNewRequest(t *testing.T) {
 	assertions := require.New(t)
 
 	bodyBytes, _ := json.Marshal("body")
-	succesfullReq, _ := http.NewRequest(http.MethodGet, "url", bytes.NewReader(bodyBytes))
+	successfulReq, _ := http.NewRequest(http.MethodGet, "url", bytes.NewReader(bodyBytes))
 
 	type args struct {
 		method   string
@@ -50,14 +50,14 @@ func TestNewRequest(t *testing.T) {
 		wantErr error
 	}{
 		{
-			name: "succesfull newRequest",
+			name: "successful newRequest",
 			args: args{
 				method:   http.MethodGet,
 				path:     "url",
 				payload:  "body",
 				userInfo: [2]string{"user", "pass"},
 			},
-			want:    succesfullReq,
+			want:    successfulReq,
 			wantErr: nil,
 		},
 		{

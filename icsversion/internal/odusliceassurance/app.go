@@ -51,7 +51,7 @@ var jobRegistrationInfo = struct {
 }{
 	InfoTypeID:   "Performance_Measurement_Streaming",
 	JobResultURI: "",
-	JobOwner:     "O-DU Slice Assurance Usecase",
+	JobOwner:     "O-DU Slice Assurance Use Case",
 }
 
 type App struct {

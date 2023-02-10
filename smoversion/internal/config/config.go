@@ -77,8 +77,8 @@ func getEnvAsInt(name string, defaultVal int) int {
 
 func getLogLevel() log.Level {
 	logLevelStr := getEnv("LOG_LEVEL", "Info")
-	if loglevel, err := log.ParseLevel(logLevelStr); err == nil {
-		return loglevel
+	if logLevel, err := log.ParseLevel(logLevelStr); err == nil {
+		return logLevel
 	} else {
 		log.Warnf("Invalid log level: %v. Log level will be Info!", logLevelStr)
 		return log.InfoLevel

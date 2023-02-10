@@ -81,7 +81,7 @@ func (a *App) getMessagesFromDmaap(path string) {
 	//Added to work with onap-Dmaap
 	var messageStrings []string
 	if error := a.client.Get(path, &messageStrings); error != nil {
-		log.Warn("Send of Get messages from DmaapMR failed! ", error)
+		log.Warn("Send of Get messages from DMaaP MR failed! ", error)
 	}
 
 	for _, msgString := range messageStrings {
