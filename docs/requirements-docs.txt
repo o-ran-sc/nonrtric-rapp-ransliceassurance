@@ -4,3 +4,5 @@ sphinxcontrib-swaggerdoc
 sphinx_bootstrap_theme
 sphinxcontrib-redoc
 lfdocs-conf
+docutils < 0.17
+urllib3~=1.26.15
