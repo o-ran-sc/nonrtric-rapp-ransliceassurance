@@ -1,6 +1,6 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. http://creativecommons.org/licenses/by/4.0
-.. Copyright (C) 2022 Nordix
+.. Copyright (C) 2022-2023 Nordix
 
 =============
 Release-Notes
@@ -34,6 +34,9 @@ Version history RAN Slice Assurance use case
 +------------+----------+------------------+-----------------+
 | 2022-12-12 | 1.2.0    | Aravindhan       | G Release       |
 |            |          | Ayyanathan       |                 |
++------------+----------+------------------+-----------------+
+| 2023-06-16 | 1.2.0    | John Keeney      | H Release       |
+|            | 1.3.0    |                  |                 |
 +------------+----------+------------------+-----------------+
 
 
@@ -232,4 +235,27 @@ G Release
 +-----------------------------+---------------------------------------------------+
 | **Purpose of the delivery** | Helm charts introduced for ICS version and Message|
 |                             | formats aligned to work with ONAP SMO install.    |
++-----------------------------+---------------------------------------------------+
+
+H Release
+---------
++-----------------------------+---------------------------------------------------+
+| **Project**                 | Non-RT RIC RAN Slice Assurance                    |
+|                             |                                                   |
++-----------------------------+---------------------------------------------------+
+| **Repo/commit-ID**          | nonrtric/rapp/ransliceassurance                   |
+|                             | 7261578f48e7728e2a45447bbf815c5c9745d1cd          |
+|                             |                                                   |
++-----------------------------+---------------------------------------------------+
+| **Release designation**     | H                                                 |
+|                             |                                                   |
++-----------------------------+---------------------------------------------------+
+| **Release date**            | 2023-06-16                                        |
+|                             |                                                   |
++-----------------------------+---------------------------------------------------+
+| **Purpose of the delivery** | nonrtric-rapp-ransliceassurance-icsversion:1.2.0  |
+|                             |    Small Updates                                  |
+|                             | nonrtric-rapp-ransliceassurance:1.3.0             |
+|                             |    Small Updates                                  |
+|                             |                                                   |
 +-----------------------------+---------------------------------------------------+
