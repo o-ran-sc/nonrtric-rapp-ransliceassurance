@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13350e28_90bf3733",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-08-20T16:10:56Z",
+      "side": 1,
+      "message": "could also add a file called \"DEPRECATED.md\" in the root directory with some skeleton content too - just so it jumps out at anyone viewing the repo contents.\n(Same for other reviews too)",
+      "revId": "a0ebc6c1b704a318f4eb3baa73872ad728832874",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
