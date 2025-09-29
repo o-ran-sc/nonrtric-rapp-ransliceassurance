@@ -1,0 +1,9 @@
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Verified+1: John Keeney <john.keeney@est.tech>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Submitted-by: John Keeney <john.keeney@est.tech>
+Submitted-at: Mon, 29 Sep 2025 11:23:15 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/nonrtric/rapp/ransliceassurance/+/15023
+Project: nonrtric/rapp/ransliceassurance
+Branch: refs/heads/master
