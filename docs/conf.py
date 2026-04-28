@@ -27,7 +27,7 @@ linkcheck_ignore = [
     'https://gerrit.o-ran-sc.org.*',
 ]
 
-extensions = ['sphinxcontrib.redoc', 'sphinx.ext.intersphinx',]
+extensions = ['sphinx.ext.intersphinx']
 
 #intershpinx mapping with other projects
 intersphinx_mapping = {}
